@@ -8,12 +8,16 @@ import JetDropdown from '@/Jetstream/Dropdown.vue';
 import JetDropdownLink from '@/Jetstream/DropdownLink.vue';
 import JetNavLink from '@/Jetstream/NavLink.vue';
 import JetResponsiveNavLink from '@/Jetstream/ResponsiveNavLink.vue';
+import {useToast} from "vue-toastification";
+import {onMounted} from "vue";
 
 defineProps({
     title: String,
 });
 
 const showingNavigationDropdown = ref(false);
+
+const toast = useToast();
 
 const switchToTeam = (team) => {
     Inertia.put(route('current-team.update'), {
@@ -26,6 +30,13 @@ const switchToTeam = (team) => {
 const logout = () => {
     Inertia.post(route('logout'));
 };
+
+onMounted(() => {
+    Echo.private('notifications')
+        .listen('UserSessionChanged', (e) => {
+            toast(e.message, { type: e.type });
+        });
+});
 </script>
 
 <template>
