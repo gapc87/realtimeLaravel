@@ -32,4 +32,10 @@ Route::middleware([
     Route::get('/dashboard', function () {
         return Inertia::render('Dashboard');
     })->name('dashboard');
+
+    Route::get('/users', function () {
+        return Inertia::render('Users/Users', [
+            'users' => \App\Models\User::all(),
+        ]);
+    })->name('users');
 });

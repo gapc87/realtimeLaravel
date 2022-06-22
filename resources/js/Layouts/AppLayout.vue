@@ -63,6 +63,9 @@ onMounted(() => {
                                 <JetNavLink :href="route('dashboard')" :active="route().current('dashboard')">
                                     Dashboard
                                 </JetNavLink>
+                                <JetNavLink :href="route('users')" :active="route().current('users')">
+                                    Users
+                                </JetNavLink>
                             </div>
                         </div>
 
@@ -221,6 +224,9 @@ onMounted(() => {
                     <div class="pt-2 pb-3 space-y-1">
                         <JetResponsiveNavLink :href="route('dashboard')" :active="route().current('dashboard')">
                             Dashboard
+                        </JetResponsiveNavLink>
+                        <JetResponsiveNavLink :href="route('users')" :active="route().current('users')">
+                            Users
                         </JetResponsiveNavLink>
                     </div>
 
