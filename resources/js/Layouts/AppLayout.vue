@@ -69,6 +69,9 @@ onMounted(() => {
                                 <JetNavLink :href="route('game')" :active="route().current('game')">
                                     Game
                                 </JetNavLink>
+                                <JetNavLink :href="route('chat.index')" :active="route().current('chat.index')">
+                                    Chat
+                                </JetNavLink>
                             </div>
                         </div>
 
@@ -233,6 +236,9 @@ onMounted(() => {
                         </JetResponsiveNavLink>
                         <JetResponsiveNavLink :href="route('game')" :active="route().current('game')">
                             Game
+                        </JetResponsiveNavLink>
+                        <JetResponsiveNavLink :href="route('chat.index')" :active="route().current('chat.index')">
+                            Chat
                         </JetResponsiveNavLink>
                     </div>
 

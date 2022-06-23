@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\ChatController;
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
@@ -42,4 +43,6 @@ Route::middleware([
     Route::get('/game', function () {
         return Inertia::render('Game/Game');
     })->name('game');
+
+    Route::apiResource('chat', ChatController::class);
 });
