@@ -23559,6 +23559,7 @@ __webpack_require__.r(__webpack_exports__);
     var messageText = (0,vue__WEBPACK_IMPORTED_MODULE_1__.ref)('');
     var onlineUsers = (0,vue__WEBPACK_IMPORTED_MODULE_1__.ref)([]);
     var messages = (0,vue__WEBPACK_IMPORTED_MODULE_1__.ref)([]);
+    var chat = (0,vue__WEBPACK_IMPORTED_MODULE_1__.ref)(null);
 
     var sendMessage = function sendMessage() {
       noApi.post('/chat', {
@@ -23568,6 +23569,7 @@ __webpack_require__.r(__webpack_exports__);
       })["finally"](function () {
         messageText.value = '';
         inputTxt.value.focus();
+        chat.value.scrollTop = chat.value.scrollHeight;
       });
     };
 
@@ -23592,6 +23594,7 @@ __webpack_require__.r(__webpack_exports__);
       messageText: messageText,
       onlineUsers: onlineUsers,
       messages: messages,
+      chat: chat,
       sendMessage: sendMessage,
       AppLayout: _Layouts_AppLayout_vue__WEBPACK_IMPORTED_MODULE_0__["default"],
       onMounted: vue__WEBPACK_IMPORTED_MODULE_1__.onMounted,
@@ -27815,7 +27818,8 @@ var _hoisted_6 = {
   "class": "flex-col flex-1 mr-3"
 };
 var _hoisted_7 = {
-  "class": "rounded border border-gray-300 w-full h-96 p-1"
+  ref: "chat",
+  "class": "rounded border border-gray-300 w-full h-96 p-1 overflow-y-scroll"
 };
 var _hoisted_8 = {
   "class": "bg-gray-50 rounded p-1 pl-2 mt-1"
@@ -27853,7 +27857,9 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
         )])]);
       }), 256
       /* UNKEYED_FRAGMENT */
-      ))]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_9, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.withDirectives)((0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("input", {
+      ))], 512
+      /* NEED_PATCH */
+      ), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_9, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.withDirectives)((0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("input", {
         onKeyup: (0,vue__WEBPACK_IMPORTED_MODULE_0__.withKeys)($setup.sendMessage, ["enter"]),
         ref: "inputTxt",
         type: "text",

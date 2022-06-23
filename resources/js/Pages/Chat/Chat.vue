@@ -6,6 +6,7 @@ const inputTxt = ref(null);
 const messageText = ref('');
 const onlineUsers = ref([]);
 const messages = ref([]);
+const chat = ref(null);
 
 const sendMessage = () => {
     noApi.post('/chat', { message: messageText.value }).then(res => {
@@ -13,6 +14,7 @@ const sendMessage = () => {
     }).finally(() => {
         messageText.value = '';
         inputTxt.value.focus();
+        chat.value.scrollTop = chat.value.scrollHeight;
     });
 }
 
@@ -45,7 +47,7 @@ onUnmounted(() => {
                 <div class="bg-white overflow-hidden shadow-xl sm:rounded-lg p-6">
                     <div class="flex">
                         <div class="flex-col flex-1 mr-3">
-                            <div class="rounded border border-gray-300 w-full h-96 p-1">
+                            <div ref="chat" class="rounded border border-gray-300 w-full h-96 p-1 overflow-y-scroll">
                                 <ul v-for="message in messages">
                                     <li class="bg-gray-50 rounded p-1 pl-2 mt-1">
                                         <strong>{{ message.user.name }}:</strong> {{ message.message }}
