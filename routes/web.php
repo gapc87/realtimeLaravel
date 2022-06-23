@@ -38,4 +38,8 @@ Route::middleware([
             'users' => \App\Models\User::all(),
         ]);
     })->name('users');
+
+    Route::get('/game', function () {
+        return Inertia::render('Game/Game');
+    })->name('game');
 });
