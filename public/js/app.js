@@ -23548,6 +23548,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ });
 /* harmony import */ var _Layouts_AppLayout_vue__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @/Layouts/AppLayout.vue */ "./resources/js/Layouts/AppLayout.vue");
 /* harmony import */ var vue__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! vue */ "./node_modules/vue/dist/vue.esm-bundler.js");
+/* harmony import */ var _inertiajs_inertia_vue3__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @inertiajs/inertia-vue3 */ "./node_modules/@inertiajs/inertia-vue3/dist/index.js");
+
 
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
@@ -23573,6 +23575,10 @@ __webpack_require__.r(__webpack_exports__);
       });
     };
 
+    var greetUser = function greetUser(userId) {
+      noApi.post("/chat/greet/".concat(userId)).then(function (res) {})["finally"]();
+    };
+
     (0,vue__WEBPACK_IMPORTED_MODULE_1__.onMounted)(function () {
       Echo.join('chat').here(function (users) {
         return onlineUsers.value = users;
@@ -23585,9 +23591,13 @@ __webpack_require__.r(__webpack_exports__);
       }).listen('MessageSent', function (e) {
         messages.value.push(e);
       });
+      Echo["private"]("chat.greet.".concat((0,_inertiajs_inertia_vue3__WEBPACK_IMPORTED_MODULE_2__.usePage)().props.value.user.id)).listen('GreetingSent', function (e) {
+        return messages.value.push(e);
+      });
     });
     (0,vue__WEBPACK_IMPORTED_MODULE_1__.onUnmounted)(function () {
       Echo.leave('chat');
+      Echo.leave("chat.greet.".concat((0,_inertiajs_inertia_vue3__WEBPACK_IMPORTED_MODULE_2__.usePage)().props.value.user.id));
     });
     var __returned__ = {
       inputTxt: inputTxt,
@@ -23596,10 +23606,12 @@ __webpack_require__.r(__webpack_exports__);
       messages: messages,
       chat: chat,
       sendMessage: sendMessage,
+      greetUser: greetUser,
       AppLayout: _Layouts_AppLayout_vue__WEBPACK_IMPORTED_MODULE_0__["default"],
       onMounted: vue__WEBPACK_IMPORTED_MODULE_1__.onMounted,
       onUnmounted: vue__WEBPACK_IMPORTED_MODULE_1__.onUnmounted,
-      ref: vue__WEBPACK_IMPORTED_MODULE_1__.ref
+      ref: vue__WEBPACK_IMPORTED_MODULE_1__.ref,
+      usePage: _inertiajs_inertia_vue3__WEBPACK_IMPORTED_MODULE_2__.usePage
     };
     Object.defineProperty(__returned__, '__isScriptSetup', {
       enumerable: false,
@@ -27841,6 +27853,7 @@ var _hoisted_12 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElement
 var _hoisted_13 = {
   "class": "mt-3"
 };
+var _hoisted_14 = ["onClick"];
 function render(_ctx, _cache, $props, $setup, $data, $options) {
   return (0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createBlock)($setup["AppLayout"], {
     title: "Chat"
@@ -27874,9 +27887,14 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
         type: "button",
         "class": "text-white bg-blue-600 hover:bg-blue-700 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center"
       }, "Send message")])]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_11, [_hoisted_12, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("ul", _hoisted_13, [((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(true), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)(vue__WEBPACK_IMPORTED_MODULE_0__.Fragment, null, (0,vue__WEBPACK_IMPORTED_MODULE_0__.renderList)($setup.onlineUsers, function (onlineUser) {
-        return (0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("li", null, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)(onlineUser.name), 1
-        /* TEXT */
-        );
+        return (0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("li", {
+          "class": "cursor-pointer",
+          onClick: function onClick($event) {
+            return $setup.greetUser(onlineUser.id);
+          }
+        }, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)(onlineUser.name), 9
+        /* TEXT, PROPS */
+        , _hoisted_14);
       }), 256
       /* UNKEYED_FRAGMENT */
       ))])])])])])])];

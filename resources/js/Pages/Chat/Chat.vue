@@ -1,6 +1,7 @@
 <script setup>
 import AppLayout from '@/Layouts/AppLayout.vue';
 import {onMounted, onUnmounted, ref} from "vue";
+import { usePage } from '@inertiajs/inertia-vue3'
 
 const inputTxt = ref(null);
 const messageText = ref('');
@@ -18,6 +19,12 @@ const sendMessage = () => {
     });
 }
 
+const greetUser = (userId) => {
+    noApi.post(`/chat/greet/${userId}`).then(res => {
+
+    }).finally();
+}
+
 onMounted(() => {
    Echo.join('chat')
        .here(users => onlineUsers.value = users)
@@ -26,10 +33,14 @@ onMounted(() => {
        .listen('MessageSent', (e) => {
            messages.value.push(e);
        });
+
+   Echo.private(`chat.greet.${usePage().props.value.user.id}`)
+       .listen('GreetingSent', (e) => messages.value.push(e))
 });
 
 onUnmounted(() => {
     Echo.leave('chat');
+    Echo.leave(`chat.greet.${usePage().props.value.user.id}`);
 })
 
 </script>
@@ -72,7 +83,11 @@ onUnmounted(() => {
                         <div class="bg-gray-50 rounded border border-gray-300 p-1 w-80">
                             <h5 class="font-bold text-center">Online Now</h5>
                             <ul class="mt-3">
-                                <li v-for="onlineUser in onlineUsers">{{ onlineUser.name }}</li>
+                                <li
+                                    v-for="onlineUser in onlineUsers"
+                                    class="cursor-pointer"
+                                    @click="greetUser(onlineUser.id)"
+                                >{{ onlineUser.name }}</li>
                             </ul>
                         </div>
                     </div>

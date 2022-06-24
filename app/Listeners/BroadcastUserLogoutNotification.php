@@ -16,7 +16,7 @@ class BroadcastUserLogoutNotification
      */
     public function __construct()
     {
-        //
+    //
     }
 
     /**

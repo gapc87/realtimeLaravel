@@ -2,7 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\Events\GreetingSent;
 use App\Events\MessageSent;
+use App\Models\User;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Inertia\Inertia;
@@ -71,5 +73,18 @@ class ChatController extends Controller
     public function destroy($id)
     {
         //
+    }
+
+    /**
+     * @param Request $request
+     * @param User $user
+     * @return JsonResponse
+     */
+    public function greetReceived(Request $request, User $user): JsonResponse
+    {
+        broadcast(new GreetingSent($user, "{$request->user()->name} greated you"));
+        broadcast(new GreetingSent($request->user(), "You greeted {$user->name}"));
+
+        return \response()->json('Private message broadcast');
     }
 }

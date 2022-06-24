@@ -45,4 +45,5 @@ Route::middleware([
     })->name('game');
 
     Route::apiResource('chat', ChatController::class);
+    Route::post('chat/greet/{user}', [ChatController::class, 'greetReceived'])->name('chat.greet');
 });
